@@ -1,6 +1,6 @@
-import React from 'react'
-import '../styles/App.css';
-import { useEffect , useState } from 'react';
+import React from "react";
+import "../styles/App.css";
+import { useEffect, useState } from "react";
 
 /**
  * @task : fetch data from the api, and show to frontend.  
@@ -22,21 +22,32 @@ import { useEffect , useState } from 'react';
  */
 
 function App() {
-
   const [data, setData] = useState([]);
 
   /**
-   * fetch data from api on mount. 
+   * fetch data from api on mount.
    */
+  useEffect(() => {
+    const getData = async () => {
+      const res = await fetch("https://jsonplaceholder.typicode.com/users");
+      const data = await res.json();
+      setData(data);
+    };
+    getData();
+  }, []);
 
   return (
-  <div className='App'>
-    { data.map((_data, i) => <p key={_data.id}>{i}.&nbsp;{_data.name}</p>) }
-  </div>
-  ); 
+    <div className="App">
+      {data.map((_data, i) => (
+        <p key={_data.id}>
+          {i}.&nbsp;{_data.name}
+        </p>
+      ))}
+    </div>
+  );
 }
 /**
  * @task1 : fetch data from this api and show to ui ;
- * 
+ *
  */
 export default App;
